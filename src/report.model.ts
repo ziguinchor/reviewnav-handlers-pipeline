@@ -5,7 +5,7 @@ import {
   HIGHLIGHT_LABELS_POSITIVE,
   PROPERTY_SCORE_WEIGHTAGE,
 } from "./report.constants";
-import DomainInfo, { Highlights } from "./report.type";
+import DomainInfo, { Highlights } from "./report.types";
 import { Func, runPipeline } from "./report.service";
 
 type calcOutput = {
@@ -321,7 +321,7 @@ export const generateHighlights = (domainInfo: DomainInfo) => {
   return {
     highlights,
     // @ts-ignore
-    score: computeScore(report),
+    score: computeScore(domainInfo),
     htmlDetails,
   };
 };

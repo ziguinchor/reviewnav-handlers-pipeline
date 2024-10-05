@@ -4,19 +4,19 @@ import {
   HIGHLIGHT_LABELS_POSITIVE,
 } from "./report.constants";
 import { getGlobalRank } from "./report.helpers";
+import { generateHighlights } from "./report.model";
 
-export type Func<T> = (domainInfo: DomainInfo) => T;
+export type Func<T> = (domainInfo: DomainInfo) => any;
 
 export const runPipeline = (
   domainInfo: DomainInfo,
   funcs: Func<DomainInfo>[]
 ) => {
-  // TODO: Type
+  return funcs.reduce(
+    (currentDomainInfo, func) => func(currentDomainInfo),
+    domainInfo
+  );
 };
-
-function doesURLRedirect(domainInfo: DomainInfo) {
-  // TODO:
-}
 
 function doesAllowAnalyzeContent(domainInfo: DomainInfo) {
   if (!domainInfo.doesAllowAnalyzeContent) {
@@ -24,6 +24,7 @@ function doesAllowAnalyzeContent(domainInfo: DomainInfo) {
       HIGHLIGHT_LABELS_NEGATIVE.DOES_NOT_ALLOW_ANALYSE_CONTENT
     );
   }
+  return domainInfo;
 }
 
 async function globalRank(domainInfo: DomainInfo) {
@@ -78,13 +79,11 @@ async function globalRank(domainInfo: DomainInfo) {
       HIGHLIGHT_LABELS_POSITIVE.RANKED_AMONG_TOP_1OOK
     );
   }
+
+  return domainInfo;
 }
 
-const handlers: Func<DomainInfo>[] = [
-  doesURLRedirect,
-  doesAllowAnalyzeContent,
-  globalRank,
-];
+const handlers: Func<DomainInfo>[] = [doesAllowAnalyzeContent, globalRank];
 
 export default function (domainInfo: DomainInfo) {
   domainInfo.preDefinedHighlights = {
@@ -94,4 +93,6 @@ export default function (domainInfo: DomainInfo) {
   domainInfo.preComputedScore = null;
 
   runPipeline(domainInfo, handlers);
+  const { highlights, score, htmlDetails } = generateHighlights(domainInfo);
+  console.log(highlights, htmlDetails, score);
 }

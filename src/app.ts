@@ -5,11 +5,16 @@ import express, {
   type NextFunction,
 } from "express";
 
-import DomainInfo from "./report.type";
+import bodyParser from "body-parser";
+
+import DomainInfo from "./report.types";
 import runPipeline from "./report.service";
 
 const app = express();
 const PORT = process.env.PORT || 9090;
+
+var jsonParser = bodyParser.json();
+app.use(jsonParser);
 
 const asyncMiddleware = (ReqHandler: RequestHandler<any>) => {
   return async (req: Request, res: Response, next: NextFunction) => {
