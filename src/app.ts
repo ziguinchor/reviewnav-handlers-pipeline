@@ -9,6 +9,7 @@ import bodyParser from "body-parser";
 
 import DomainInfo from "./report.types";
 import runPipeline from "./report.service";
+import { validateDomainInfo } from "./report.middleware";
 
 const app = express();
 const PORT = process.env.PORT || 9090;
@@ -28,9 +29,12 @@ const asyncMiddleware = (ReqHandler: RequestHandler<any>) => {
 
 app.post(
   "/reports",
+  // @ts-ignore
+  validateDomainInfo,
   asyncMiddleware((req: Request<any, any, DomainInfo>, res: Response) => {
     const domainInfo: DomainInfo = req.body;
-    runPipeline(domainInfo);
+    const results = runPipeline(domainInfo);
+    res.json(results);
   })
 );
 

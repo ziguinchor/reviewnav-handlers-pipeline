@@ -94,5 +94,9 @@ export default function (domainInfo: DomainInfo) {
 
   runPipeline(domainInfo, handlers);
   const { highlights, score, htmlDetails } = generateHighlights(domainInfo);
-  console.log(highlights, htmlDetails, score);
+  return {
+    highlights,
+    htmlDetails,
+    score,
+  };
 }
