@@ -85,14 +85,14 @@ async function globalRank(domainInfo: DomainInfo) {
 
 const handlers: Func<DomainInfo>[] = [doesAllowAnalyzeContent, globalRank];
 
-export default function (domainInfo: DomainInfo) {
+export default async function (domainInfo: DomainInfo) {
   domainInfo.preDefinedHighlights = {
     negative: new Set(),
     positive: new Set(),
   };
   domainInfo.preComputedScore = null;
 
-  runPipeline(domainInfo, handlers);
+  domainInfo = await runPipeline(domainInfo, handlers);
   const { highlights, score, htmlDetails } = generateHighlights(domainInfo);
 
   return {

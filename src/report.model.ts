@@ -1,4 +1,3 @@
-import { Domain } from "domain";
 import {
   BASE_SCORE,
   HIGHLIGHT_LABELS_NEGATIVE,
@@ -25,7 +24,7 @@ const SEVEN_YEARS = ONE_YEAR * 7;
 
 const computeScore = (domainInfo: DomainInfo) => {
   let currentScore: number = BASE_SCORE;
-
+  //console.log(domainInfo);
   const { domainName, globalRank, domainAge, sslState, isParkedDomain } =
     domainInfo;
 

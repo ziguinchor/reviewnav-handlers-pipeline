@@ -2,7 +2,7 @@ POST http://localhost:9090/reports
 Content-Type: application/json
 
 {
-  "domainName": "example.com",
+  "domainName": "google.com",
   "doesAllowAnalyzeContent": false,
   "isParkedDomain": true,
   "redirectsTo": "http://parked.mywebsite.org",

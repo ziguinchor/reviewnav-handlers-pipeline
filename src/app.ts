@@ -31,9 +31,9 @@ app.post(
   "/reports",
   // @ts-ignore
   validateDomainInfo,
-  asyncMiddleware((req: Request<any, any, DomainInfo>, res: Response) => {
+  asyncMiddleware(async (req: Request<any, any, DomainInfo>, res: Response) => {
     const domainInfo: DomainInfo = req.body;
-    const { highlights, htmlDetails, score } = runPipeline(domainInfo);
+    const { highlights, htmlDetails, score } = await runPipeline(domainInfo);
 
     res.json({
       highlights: {
