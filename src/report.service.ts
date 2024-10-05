@@ -1,16 +1,16 @@
-import { report } from "process";
-import DomainInfo from "./report.type";
+import DomainInfo from "./report.types";
 import {
   HIGHLIGHT_LABELS_NEGATIVE,
   HIGHLIGHT_LABELS_POSITIVE,
 } from "./report.constants";
 import { getGlobalRank } from "./report.helpers";
 
-// Step 1: Define a type for a function that takes input and returns the modified input.
-type Func<T> = (domainInfo: DomainInfo) => void;
+export type Func<T> = (domainInfo: DomainInfo) => T;
 
-// Step 2: Create a pipeline function that takes an array of functions and applies them to the input.
-const runPipeline = (domainInfo: DomainInfo, funcs: Func<DomainInfo>[]) => {
+export const runPipeline = (
+  domainInfo: DomainInfo,
+  funcs: Func<DomainInfo>[]
+) => {
   // TODO: Type
 };
 
@@ -80,7 +80,12 @@ async function globalRank(domainInfo: DomainInfo) {
   }
 }
 
-const handlers: Func<DomainInfo>[] = [doesURLRedirect, doesAllowAnalyzeContent];
+const handlers: Func<DomainInfo>[] = [
+  doesURLRedirect,
+  doesAllowAnalyzeContent,
+  globalRank,
+];
+
 export default function (domainInfo: DomainInfo) {
   domainInfo.preDefinedHighlights = {
     negative: new Set(),
