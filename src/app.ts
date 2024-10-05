@@ -33,8 +33,16 @@ app.post(
   validateDomainInfo,
   asyncMiddleware((req: Request<any, any, DomainInfo>, res: Response) => {
     const domainInfo: DomainInfo = req.body;
-    const results = runPipeline(domainInfo);
-    res.json(results);
+    const { highlights, htmlDetails, score } = runPipeline(domainInfo);
+
+    res.json({
+      highlights: {
+        positive: [...highlights.positive],
+        negative: [...highlights.negative],
+      },
+      htmlDetails,
+      score,
+    });
   })
 );
 

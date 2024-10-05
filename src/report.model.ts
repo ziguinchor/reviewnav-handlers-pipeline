@@ -293,6 +293,7 @@ export const generateHighlights = (domainInfo: DomainInfo) => {
     positive: new Set(),
     negative: new Set(),
   };
+
   let htmlDetails = {
     companyEvaluation: [] as string[],
     technicalAnalysis: [] as string[],
@@ -312,6 +313,7 @@ export const generateHighlights = (domainInfo: DomainInfo) => {
       // @ts-ignore
       htmlDetails[details.type].push(`${details.p}`);
     }
+
     positiveHighlight &&
       highlights.positive.add(positiveHighlight as HIGHLIGHT_LABELS_POSITIVE);
     negativeHighlight &&

@@ -2,21 +2,21 @@ POST http://localhost:9090/reports
 Content-Type: application/json
 
 {
-  "domainName": "facebook.org",
+  "domainName": "example.com",
   "doesAllowAnalyzeContent": false,
   "isParkedDomain": true,
   "redirectsTo": "http://parked.mywebsite.org",
   "isKnownRegistrar": false,
   "isDnsBlackListed": true,
-  "supportsHsts": false,
+  "supportsHsts": true,
   "hasFavIcon": false,
   "domainAge": 3,
-  "domainAgeReadable": false,
+  "domainAgeReadable": true,
   "sslState": {
     "valid": false,
     "error": "SSL certificate expired"
   },
-  "supportsCSP": false,
+  "supportsCSP": true,
   "whoisHidden": true,
   "implementsReferrerPolicy": false,
   "loadsExternalObjects": false,
