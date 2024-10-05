@@ -31,19 +31,25 @@ app.post(
   "/reports",
   // @ts-ignore
   validateDomainInfo,
-  asyncMiddleware(async (req: Request<any, any, DomainInfo>, res: Response) => {
-    const domainInfo: DomainInfo = req.body;
-    const { highlights, htmlDetails, score } = await runPipeline(domainInfo);
+  asyncMiddleware(
+    async (
+      req: Request<any, any, { domainInfo: DomainInfo; data: any }>,
+      res: Response
+    ) => {
+      const { domainInfo, data } = req.body;
+      const { highlights, htmlDetails, score } = await runPipeline(domainInfo);
 
-    res.json({
-      highlights: {
-        positive: [...highlights.positive],
-        negative: [...highlights.negative],
-      },
-      htmlDetails,
-      score,
-    });
-  })
+      res.json({
+        ...data,
+        highlights: {
+          positive: [...highlights.positive],
+          negative: [...highlights.negative],
+        },
+        htmlDetails,
+        score,
+      });
+    }
+  )
 );
 
 app.listen(PORT, () => {

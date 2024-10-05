@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
 import Joi from "joi";
+import DomainInfo from "./report.types";
 
 const domainInfoSchema = Joi.object({
   domainName: Joi.string().required(),
@@ -35,7 +36,7 @@ export const validateDomainInfo = (
   res: Response,
   next: NextFunction
 ) => {
-  const { error } = domainInfoSchema.validate(req.body);
+  const { error } = domainInfoSchema.validate(req.body.domainInfo);
   if (error) {
     return res.status(400).json({ error: error.details[0].message });
   }
