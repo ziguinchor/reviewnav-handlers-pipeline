@@ -40,7 +40,7 @@ app.post(
       const { highlights, htmlDetails, score } = await runPipeline(domainInfo);
 
       res.json({
-        ...data,
+        data,
         highlights: {
           positive: [...highlights.positive],
           negative: [...highlights.negative],

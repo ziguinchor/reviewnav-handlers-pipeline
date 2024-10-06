@@ -3,21 +3,21 @@ Content-Type: application/json
 
 {
   "domainInfo": {
-    "domainName": "google.com",
+    "domainName": "love.com",
     "doesAllowAnalyzeContent": false,
     "isParkedDomain": true,
     "redirectsTo": "http://parked.mywebsite.org",
-    "isKnownRegistrar": false,
-    "isDnsBlackListed": true,
+    "isKnownRegistrar": true,
+    "isDnsBlackListed": false,
     "supportsHsts": true,
     "hasFavIcon": false,
-    "domainAge": 3,
+    "domainAge": 113340043880, 
     "domainAgeReadable": true,
     "sslState": {
       "valid": false,
       "error": "SSL certificate expired"
     },
-    "supportsCSP": true,
+    "supportsCSP": false,
     "whoisHidden": true,
     "implementsReferrerPolicy": false,
     "loadsExternalObjects": false,
@@ -27,7 +27,7 @@ Content-Type: application/json
     "isUrlShortened": true,
     "doesSupportHSTS": false,
     "isProtectedAgainstXSS": false,
-    "doesLoadExternalObjects": false
+    "doesLoadExternalObjects": true
   },
   "data": {
     "any": "any"
