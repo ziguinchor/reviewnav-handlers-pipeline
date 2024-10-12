@@ -27,3 +27,11 @@ export const getGlobalRank = async (domainName: string): Promise<number> => {
   }
   return rank;
 };
+
+export function removeEmpty(obj: Object): Object {
+  return Object.fromEntries(
+    Object.entries(obj)
+      .filter(([_, v]) => !!v)
+      .map(([k, v]) => [k, v === Object(v) ? removeEmpty(v) : v])
+  );
+}

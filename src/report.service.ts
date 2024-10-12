@@ -5,7 +5,7 @@ import {
   HIGHLIGHT_LABELS_NEGATIVE,
   HIGHLIGHT_LABELS_POSITIVE,
 } from "./report.constants";
-import { getGlobalRank } from "./report.helpers";
+import { getGlobalRank, removeEmpty } from "./report.helpers";
 import { generateHighlights } from "./report.model";
 
 export type Func<T> = (domainInfo: DomainInfo) => any;
@@ -111,8 +111,7 @@ export default async function (domaineName: string) {
   domainInfo = await runPipeline(domainInfo, handlers);
   console.log(domainInfo);
   const { highlights, score, htmlDetails } = generateHighlights(domainInfo);
-
-  return {
+  const scanResults = {
     highlights: {
       negative: [...highlights.negative],
       positive: [...highlights.positive],
@@ -121,4 +120,6 @@ export default async function (domaineName: string) {
     score,
     ...preData,
   };
+
+  return removeEmpty(scanResults);
 }

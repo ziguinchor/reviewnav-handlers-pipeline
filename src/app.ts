@@ -4,8 +4,8 @@ import express, {
   type RequestHandler,
   type NextFunction,
 } from "express";
-
 import bodyParser from "body-parser";
+import { serialize } from "php-serialize";
 
 import runPipeline from "./report.service";
 import { domainNameSchema } from "./report.middleware";
@@ -43,7 +43,7 @@ app.post(
 
       const results = await runPipeline(domainName);
 
-      res.json(results);
+      res.json(serialize(results));
     }
   )
 );

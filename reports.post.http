@@ -4,11 +4,17 @@ Content-Type: application/json
 {
   "domainName": "love.com"
 }
-
-
-POST https://solid-forks-feel.loca.lt/reports
+###
+POST http://64.23.155.125:9090/reports
 Content-Type: application/json
 
 {
   "domainName": "love.com"
+}
+#####
+POST http://64.23.155.125:1337/api/reports
+Content-Type: application/json
+
+{
+  "url": "https://love.com"
 }
