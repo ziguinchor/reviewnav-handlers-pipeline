@@ -1,0 +1,63 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.HIGHLIGHT_LABELS_POSITIVE = exports.HIGHLIGHT_LABELS_NEGATIVE = exports.PROPERTY_SCORE_WEIGHTAGE = exports.BASE_SCORE = void 0;
+exports.BASE_SCORE = 50; // default trust_ score of url out of 100
+var PROPERTY_SCORE_WEIGHTAGE;
+(function (PROPERTY_SCORE_WEIGHTAGE) {
+    PROPERTY_SCORE_WEIGHTAGE[PROPERTY_SCORE_WEIGHTAGE["GOOGLE_SAFE_BROWSING"] = 0.9] = "GOOGLE_SAFE_BROWSING";
+    PROPERTY_SCORE_WEIGHTAGE[PROPERTY_SCORE_WEIGHTAGE["DOMAIN_RANK"] = 0.9] = "DOMAIN_RANK";
+    PROPERTY_SCORE_WEIGHTAGE[PROPERTY_SCORE_WEIGHTAGE["SSL_VALID"] = 0.4] = "SSL_VALID";
+    PROPERTY_SCORE_WEIGHTAGE[PROPERTY_SCORE_WEIGHTAGE["DOMAIN_AGE"] = 0.4] = "DOMAIN_AGE";
+    PROPERTY_SCORE_WEIGHTAGE[PROPERTY_SCORE_WEIGHTAGE["DOMAINE_PARKED"] = 0.4] = "DOMAINE_PARKED";
+    PROPERTY_SCORE_WEIGHTAGE[PROPERTY_SCORE_WEIGHTAGE["IS_URL_SHORTENED"] = 0.8] = "IS_URL_SHORTENED";
+    PROPERTY_SCORE_WEIGHTAGE[PROPERTY_SCORE_WEIGHTAGE["HSTS_SUPPORT"] = 0.1] = "HSTS_SUPPORT";
+    PROPERTY_SCORE_WEIGHTAGE[PROPERTY_SCORE_WEIGHTAGE["IP_PRESENT"] = 0.8] = "IP_PRESENT";
+    PROPERTY_SCORE_WEIGHTAGE[PROPERTY_SCORE_WEIGHTAGE["URL_REDIRECTS"] = 0.1] = "URL_REDIRECTS";
+    PROPERTY_SCORE_WEIGHTAGE[PROPERTY_SCORE_WEIGHTAGE["TOO_LONG_URL"] = 0.1] = "TOO_LONG_URL";
+    PROPERTY_SCORE_WEIGHTAGE[PROPERTY_SCORE_WEIGHTAGE["TOO_DEEP_URL"] = 0.5] = "TOO_DEEP_URL";
+    PROPERTY_SCORE_WEIGHTAGE[PROPERTY_SCORE_WEIGHTAGE["CONTENT"] = 0.1] = "CONTENT";
+    PROPERTY_SCORE_WEIGHTAGE[PROPERTY_SCORE_WEIGHTAGE["HAS_FAV_ICON"] = 0.1] = "HAS_FAV_ICON";
+    PROPERTY_SCORE_WEIGHTAGE[PROPERTY_SCORE_WEIGHTAGE["URL_HAS_ALT_SIGN"] = 0.1] = "URL_HAS_ALT_SIGN";
+    PROPERTY_SCORE_WEIGHTAGE[PROPERTY_SCORE_WEIGHTAGE["URL_LOADS_EXTERNAL_OBJECTS"] = 0.2] = "URL_LOADS_EXTERNAL_OBJECTS";
+    PROPERTY_SCORE_WEIGHTAGE[PROPERTY_SCORE_WEIGHTAGE["DNS_BLACK_LISTED"] = 0.3] = "DNS_BLACK_LISTED";
+})(PROPERTY_SCORE_WEIGHTAGE || (exports.PROPERTY_SCORE_WEIGHTAGE = PROPERTY_SCORE_WEIGHTAGE = {}));
+var HIGHLIGHT_LABELS_NEGATIVE;
+(function (HIGHLIGHT_LABELS_NEGATIVE) {
+    HIGHLIGHT_LABELS_NEGATIVE["REGISTRAR_UNKNOWN"] = "Domain registrar unknown";
+    HIGHLIGHT_LABELS_NEGATIVE["URL_SHORTENED"] = "URL is shortened";
+    HIGHLIGHT_LABELS_NEGATIVE["DOES_NOT_SUPPORT_HSTS"] = "Website does not supports HTTP Strict Transport Security (HSTS) policy";
+    HIGHLIGHT_LABELS_NEGATIVE["IP_PRESENT"] = "Website uses an IP address instead of a domain name.";
+    HIGHLIGHT_LABELS_NEGATIVE["URL_TOO_LONG"] = "URL is too long!";
+    HIGHLIGHT_LABELS_NEGATIVE["URL_TOO_DEEP"] = "URL is too deep";
+    HIGHLIGHT_LABELS_NEGATIVE["HAS_NO_ICON"] = "Website has no icon";
+    HIGHLIGHT_LABELS_NEGATIVE["URL_SUSP_CHARS"] = "Url contains some characters that are common in malicious links.";
+    HIGHLIGHT_LABELS_NEGATIVE["LOADS_EXTERNAL_OBJECTS"] = "Website loads external objects";
+    HIGHLIGHT_LABELS_NEGATIVE["DOES_NOT_IMPLEMENT_REFERER_POLICY"] = "Website doesn not control how much information is shared through the HTTP Referer header.";
+    HIGHLIGHT_LABELS_NEGATIVE["NOT_PROTECTED_AGAINST_INJECTION"] = "Website is not protected against cross-site scripting, clickjacking and other code injection attacks.";
+    HIGHLIGHT_LABELS_NEGATIVE["URL_REDIRECTS"] = "URL redirects to another address.";
+    HIGHLIGHT_LABELS_NEGATIVE["DOES_HIDE_WHOIS"] = "The owner of the website is using a service to hide their identity on WHOIS";
+    HIGHLIGHT_LABELS_NEGATIVE["DOMAIN_PARKED"] = "Domain is Parked";
+    HIGHLIGHT_LABELS_NEGATIVE["URL_ABNORMAL"] = "URL seems abnormal";
+    HIGHLIGHT_LABELS_NEGATIVE["DOES_NOT_ALLOW_ANALYSE_CONTENT"] = "The site does not allow us to analyze its content";
+    HIGHLIGHT_LABELS_NEGATIVE["DOMAIN_AGE_VERY_YOUNG"] = "This website is (very) young.";
+    // DOES_NOT_ALLOW_ANALYSE_CONTENT = "We could not analyze the content of the site",
+    HIGHLIGHT_LABELS_NEGATIVE["DNS_BLACK_LISTED"] = "Server IP address has been listed in one or more DNS Black lists";
+    HIGHLIGHT_LABELS_NEGATIVE["NO_SSL_CERT_FOUND"] = "We did not find a valid SSL certificate";
+})(HIGHLIGHT_LABELS_NEGATIVE || (exports.HIGHLIGHT_LABELS_NEGATIVE = HIGHLIGHT_LABELS_NEGATIVE = {}));
+var HIGHLIGHT_LABELS_POSITIVE;
+(function (HIGHLIGHT_LABELS_POSITIVE) {
+    HIGHLIGHT_LABELS_POSITIVE["SSL_VALID"] = "The SSL certificate is valid";
+    HIGHLIGHT_LABELS_POSITIVE["MAINLY_REVIEWED_POSITIVELY"] = "This website has been reviewed mainly positively";
+    HIGHLIGHT_LABELS_POSITIVE["SAFE_BY_GOOGLE_SAFE_BROWSING"] = "This website is considered safe by Google Safe Browsing";
+    HIGHLIGHT_LABELS_POSITIVE["SAFE_DNS_FILTER"] = "DNS Filter labels this site as safe";
+    HIGHLIGHT_LABELS_POSITIVE["RANKED_AMONG_TOP_1OOK"] = "Domain ranked among the top 100K globally";
+    HIGHLIGHT_LABELS_POSITIVE["RANKED_AMONG_TOP_5OOK"] = "Domain ranked among the top 500K globally";
+    HIGHLIGHT_LABELS_POSITIVE["REGISTRAR_GOOD_REPUTATION"] = "The registrar of this domain enjoys a good reputation";
+    HIGHLIGHT_LABELS_POSITIVE["URL_NOT_SHORTENED"] = "URL is not shortened";
+    HIGHLIGHT_LABELS_POSITIVE["SUPPORTS_HSTS"] = "Website supports HTTP Strict Transport Security (HSTS) policy";
+    HIGHLIGHT_LABELS_POSITIVE["IMPLEMENTS_REFERER_POLICY"] = "Website implements a policy which protects data from being leaked to insecure origins.";
+    HIGHLIGHT_LABELS_POSITIVE["PROTECTED_AGAINST_INJECTION"] = "Website is protected against cross-site scripting, clickjacking and other code injection attacks.";
+    HIGHLIGHT_LABELS_POSITIVE["NOT_DNS_BLACKLISTED"] = "Review nav DNSBL lookup confirms that the domain name has not been reported";
+    HIGHLIGHT_LABELS_POSITIVE["DOMAIN_AGE_SOME_YEARS"] = "This website has existed for quite some years";
+    HIGHLIGHT_LABELS_POSITIVE["DOMAIN_AGE_OLD"] = "This website is (very) old";
+})(HIGHLIGHT_LABELS_POSITIVE || (exports.HIGHLIGHT_LABELS_POSITIVE = HIGHLIGHT_LABELS_POSITIVE = {}));
