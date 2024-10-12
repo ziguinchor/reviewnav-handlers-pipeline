@@ -17,7 +17,7 @@ type calcOutput = {
   };
 };
 
-const ONE_YEAR = 1000 * 60 * 60 * 24 * 365;
+const ONE_YEAR = 365;
 const TWO_YEARS = ONE_YEAR * 2;
 const FIVE_YEARS = ONE_YEAR * 5;
 const SEVEN_YEARS = ONE_YEAR * 7;
