@@ -100,7 +100,6 @@ export default async function (domaineName: string) {
   let { domainInfo, data: preData } = data;
 
   domainInfo.domainName = domaineName;
-  // console.log(domainInfo);
 
   domainInfo.preDefinedHighlights = {
     negative: new Set(),
@@ -109,7 +108,7 @@ export default async function (domaineName: string) {
   domainInfo.preComputedScore = null;
 
   domainInfo = await runPipeline(domainInfo, handlers);
-  console.log(domainInfo);
+
   const { highlights, score, htmlDetails } = generateHighlights(domainInfo);
   const scanResults = {
     highlights: {
@@ -117,7 +116,7 @@ export default async function (domaineName: string) {
       positive: [...highlights.positive],
     },
     htmlDetails,
-    score,
+    score: domainInfo.preComputedScore,
     ...preData,
   };
 
