@@ -43,7 +43,7 @@ app.post(
 
       const results = await runPipeline(domainName);
 
-      res.json(serialize(results));
+      res.send(serialize(results));
     }
   )
 );
