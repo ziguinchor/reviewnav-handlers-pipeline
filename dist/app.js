@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
+const php_serialize_1 = require("php-serialize");
 const report_service_1 = __importDefault(require("./report.service"));
 const report_middleware_1 = require("./report.middleware");
 const app = (0, express_1.default)();
@@ -42,7 +43,7 @@ asyncMiddleware((req, res) => __awaiter(void 0, void 0, void 0, function* () {
         return;
     }
     const results = yield (0, report_service_1.default)(domainName);
-    res.json(results);
+    res.json((0, php_serialize_1.serialize)(results));
 })));
 app.use((err, req, res, next) => {
     // Handle other types of errors

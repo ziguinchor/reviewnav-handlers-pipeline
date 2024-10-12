@@ -20,6 +20,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getGlobalRank = void 0;
+exports.removeEmpty = removeEmpty;
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 const readline_1 = __importDefault(require("readline"));
@@ -61,3 +62,8 @@ const getGlobalRank = (domainName) => __awaiter(void 0, void 0, void 0, function
     return rank;
 });
 exports.getGlobalRank = getGlobalRank;
+function removeEmpty(obj) {
+    return Object.fromEntries(Object.entries(obj)
+        .filter(([_, v]) => !!v)
+        .map(([k, v]) => [k, v === Object(v) ? removeEmpty(v) : v]));
+}

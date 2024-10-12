@@ -95,10 +95,11 @@ function default_1(domaineName) {
         domainInfo = yield (0, exports.runPipeline)(domainInfo, handlers);
         console.log(domainInfo);
         const { highlights, score, htmlDetails } = (0, report_model_1.generateHighlights)(domainInfo);
-        return Object.assign({ highlights: {
+        const scanResults = Object.assign({ highlights: {
                 negative: [...highlights.negative],
                 positive: [...highlights.positive],
             }, htmlDetails,
             score }, preData);
+        return (0, report_helpers_1.removeEmpty)(scanResults);
     });
 }
