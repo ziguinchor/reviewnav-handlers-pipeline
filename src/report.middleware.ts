@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
 import Joi from "joi";
-import DomainInfo from "./report.types";
 
 const domainInfoSchema = Joi.object({
   domainName: Joi.string().required(),
@@ -29,6 +28,11 @@ const domainInfoSchema = Joi.object({
   doesSupportHSTS: Joi.boolean().required(),
   isProtectedAgainstXSS: Joi.boolean().required(),
   doesLoadExternalObjects: Joi.boolean().required(),
+});
+
+export const domainNameSchema = Joi.string().domain().required().messages({
+  "string.domain": "The domainName must be a valid domain.",
+  "any.required": "The domainName field is required.",
 });
 
 export const validateDomainInfo = (

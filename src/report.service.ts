@@ -1,4 +1,6 @@
 import DomainInfo from "./report.types";
+import axios from "axios";
+
 import {
   HIGHLIGHT_LABELS_NEGATIVE,
   HIGHLIGHT_LABELS_POSITIVE,
@@ -85,7 +87,21 @@ async function globalRank(domainInfo: DomainInfo) {
 
 const handlers: Func<DomainInfo>[] = [doesAllowAnalyzeContent, globalRank];
 
-export default async function (domainInfo: DomainInfo) {
+export default async function (domaineName: string) {
+  const url =
+    "https://projects-lab.com/whois-domain/index.php?domain=" + domaineName;
+  let { data } = await axios.get<any, DomainInfo>(url);
+  if (typeof data == "string") {
+    const jsonMatch = data.match(/{.*}/);
+    if (!jsonMatch) throw new Error("Response malformed!");
+    data = JSON.parse(jsonMatch[0]);
+  }
+
+  let { domainInfo, data: preData } = data;
+
+  domainInfo.domainName = domaineName;
+  // console.log(domainInfo);
+
   domainInfo.preDefinedHighlights = {
     negative: new Set(),
     positive: new Set(),
@@ -93,11 +109,16 @@ export default async function (domainInfo: DomainInfo) {
   domainInfo.preComputedScore = null;
 
   domainInfo = await runPipeline(domainInfo, handlers);
+  console.log(domainInfo);
   const { highlights, score, htmlDetails } = generateHighlights(domainInfo);
 
   return {
-    highlights,
+    highlights: {
+      negative: [...highlights.negative],
+      positive: [...highlights.positive],
+    },
     htmlDetails,
     score,
+    ...preData,
   };
 }

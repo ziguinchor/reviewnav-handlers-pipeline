@@ -33,6 +33,7 @@ type DomainInfo = {
   preDefinedHighlights: Highlights;
   highlights: Highlights;
   preComputedScore: number | null;
+  data?: any;
 };
 
 export type Highlights = {

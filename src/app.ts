@@ -7,12 +7,13 @@ import express, {
 
 import bodyParser from "body-parser";
 
-import DomainInfo from "./report.types";
 import runPipeline from "./report.service";
-import { validateDomainInfo } from "./report.middleware";
+import { domainNameSchema } from "./report.middleware";
 
 const app = express();
 const PORT = process.env.PORT || 9090;
+
+console.clear();
 
 var jsonParser = bodyParser.json();
 app.use(jsonParser);
@@ -30,27 +31,30 @@ const asyncMiddleware = (ReqHandler: RequestHandler<any>) => {
 app.post(
   "/reports",
   // @ts-ignore
-  validateDomainInfo,
   asyncMiddleware(
-    async (
-      req: Request<any, any, { domainInfo: DomainInfo; data: any }>,
-      res: Response
-    ) => {
-      const { domainInfo, data } = req.body;
-      const { highlights, htmlDetails, score } = await runPipeline(domainInfo);
+    async (req: Request<any, any, { domainName: string }>, res: Response) => {
+      const { domainName } = req.body;
+      const { error } = domainNameSchema.validate(domainName);
+      if (error) {
+        // Respond with validation error details
+        res.status(400).json({ error: error.details[0].message });
+        return;
+      }
 
-      res.json({
-        data,
-        highlights: {
-          positive: [...highlights.positive],
-          negative: [...highlights.negative],
-        },
-        htmlDetails,
-        score,
-      });
+      const results = await runPipeline(domainName);
+
+      res.json(results);
     }
   )
 );
+
+app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
+  // Handle other types of errors
+  console.log(err);
+  res.status(500).json({
+    error: "An internal server error occurred.",
+  });
+});
 
 app.listen(PORT, () => {
   console.log("Server ready at " + PORT);
